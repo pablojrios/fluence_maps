@@ -5,7 +5,7 @@ import tensorflow as tf
 import pydicom
 import numpy as np
 from PIL import Image
-import lodgepole.image_tools as lit
+# import lodgepole.image_tools as lit
 from enum import Enum
 import pandas as pd
 import matplotlib.pyplot as plt
