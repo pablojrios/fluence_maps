@@ -1,3 +1,8 @@
+# modelos de fluencia
+cifar10/cifar10.tgz
+cifar10/data/
+pytorch/models/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
