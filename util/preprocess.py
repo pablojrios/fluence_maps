@@ -265,3 +265,13 @@ def rescale_min_1_to_1(image):
     # Rescale image from [0, 255] to [0, 2], and by substracting -1 we rescale to [-1, 1].
     image = (image/127.5) - 1
     return image
+
+
+def rescale_0_to_1(image):
+    """
+    Rescale image to [0, 1].
+    """
+    # Image must be casted to float32 first
+    image = tf.cast(image, tf.float32)
+    image = (image/255.0)
+    return image
