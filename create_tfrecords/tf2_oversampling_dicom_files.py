@@ -9,7 +9,7 @@ def do_oversampling(df_gamma_in, gamma_threshold, oversampling_factor):
     df_low_gamma = df_low_gamma[df_low_gamma['gamma_index'] <= gamma_threshold]
     count_low_gamma: int = len(df_low_gamma)
     print(f'Hay {count_low_gamma} mapas con un gamma menor o igual que {gamma_threshold} y {total_maps-count_low_gamma} con un gamma mayor,'
-          f' sobre un total de {len(total_maps)} mapas.')
+          f' sobre un total de {total_maps} mapas.')
     count_new_maps = count_low_gamma * oversampling_factor
     print(f'Oversampling factor es {oversampling_factor:.2f}, se van a hacer {int(count_new_maps)} copias al azar de mapas con un gamma menor o igual que {gamma_threshold}.')
 
