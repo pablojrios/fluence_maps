@@ -276,8 +276,8 @@ def rescale_0_to_1(image):
     
     # begin increase constrast
     maxIntensity = 255.0
-    phi = 1.0
-    theta = 1.0
+    phi = 1.3
+    theta = 1.5
     image = (maxIntensity/phi)*(image/(maxIntensity/theta))**2
     maxIntensityAfter = tf.reduce_max(image)
     # end increase constrast
