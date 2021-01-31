@@ -273,5 +273,14 @@ def rescale_0_to_1(image):
     """
     # Image must be casted to float32 first
     image = tf.cast(image, tf.float32)
-    image = (image/255.0)
+    
+    # begin increase constrast
+    maxIntensity = 255.0
+    phi = 1.0
+    theta = 1.0
+    image = (maxIntensity/phi)*(image/(maxIntensity/theta))**2
+    maxIntensityAfter = tf.reduce_max(image)
+    # end increase constrast
+
+    image = (image/maxIntensityAfter)
     return image
