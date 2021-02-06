@@ -69,7 +69,7 @@ def build_dicom_filename(base, year, filename):
     return os.path.join(base, year, filename + '.dcm')
 
 
-def _get_filenames_and_gamma_values(dicom_and_gamma_csv, dataset_dir, oversampling=False):
+def _get_filenames_and_gamma_values(dicom_and_gamma_csv, dataset_dir, oversampling=False, sample=1.0, seed=12345):
     """Returns a list of filenames and inferred class names.
 
     Args:
@@ -86,11 +86,15 @@ def _get_filenames_and_gamma_values(dicom_and_gamma_csv, dataset_dir, oversampli
     # agrego una columna constante al dataframe para hacer más simple el armado del full file path de los archivos dicom
     df_dcm_in['base_dir'] = dataset_dir
 
-    df_dcm_out = pd.DataFrame(columns=['dicom_full_filepath', 'gamma_index', 'oversampled'])
+    df_dcm_out = pd.DataFrame(columns=['dicom_full_filepath', 'gamma_index'])
     df_dcm_out['dicom_full_filepath'] = [build_dicom_filename(row[0], str(row[1]), row[2]) for row in df_dcm_in[['base_dir', 'año', 'fluencia calculada']].values]
     df_dcm_out['gamma_index'] = df_dcm_in.apply(lambda row: 100.0 - row['uno menos gamma index'], axis=1)
     # Pass-by-object-reference: As we know, in Python, “Object references are passed by value”, so
     # displayHistogramOfGammaValues(df_dcm_out)
+    
+    if 0.0 < sample <= 1.0:
+        df_dcm_out = df_dcm_out.sample(n=int(len(df_dcm_in)*sample), random_state=seed)
+    
     return df_dcm_out
 
 

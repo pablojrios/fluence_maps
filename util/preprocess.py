@@ -11,6 +11,8 @@ import os
 import sys
 import cv2
 from pylab import array, arange, uint8
+import math
+
 
 ########################################################################
 
@@ -277,3 +279,53 @@ def rescale_0_to_1(image):
     
     image = (image/255.0)
     return image
+
+
+############# Data Augmentation ###############
+
+### Center Crop ###
+def crop(im, r, c, target_r, target_c): return im[r:r+target_r, c:c+target_c]
+
+
+# random crop to the original size
+def random_crop(x, r_pix=8):
+    """ Returns a random crop"""
+    r, c,*_ = x.shape
+    c_pix = round(r_pix*c/r)
+    rand_r = random.uniform(0, 1)
+    rand_c = random.uniform(0, 1)
+    start_r = np.floor(2*rand_r*r_pix).astype(int)
+    start_c = np.floor(2*rand_c*c_pix).astype(int)
+    return crop(x, start_r, start_c, r-2*r_pix, c-2*c_pix)
+
+
+def center_crop(x, r_pix=8):
+    r, c,*_ = x.shape
+    c_pix = round(r_pix*c/r)
+    return crop(x, r_pix, c_pix, r-2*r_pix, c-2*c_pix)
+
+
+def rotate_cv(im, deg, mode=cv2.BORDER_REFLECT, interpolation=cv2.INTER_AREA):
+    """ Rotates an image by deg degrees"""
+    r,c,*_ = im.shape
+    print(f"rotate_cv: {r},{c}")
+    M = cv2.getRotationMatrix2D((c/2,r/2),deg,1)
+    return cv2.warpAffine(im,M,(c,r), borderMode=mode, 
+                          flags=cv2.WARP_FILL_OUTLIERS+interpolation)
+
+
+### Translation ###
+def random_translation(x, t_pix=16):
+    """ Returns a random translation"""
+    rows, cols, *_ = x.shape
+    rand_r = random.uniform(0, 1)
+    rand_c = random.uniform(0, 1)
+    t_r = np.floor(rand_r*t_pix).astype(int)
+    t_c = np.floor(rand_c*t_pix).astype(int)
+    # transformation T does shift (t_r, t_c)
+    # [a0, a1, a2, b0, b1, b2, c0, c1], then it maps the output point
+    # (x, y) to a transformed input point
+    # (x', y') = ((a0 x + a1 y + a2) / k, (b0 x + b1 y + b2) / k),
+    # where k = c0 x + c1 y + 1
+    T = [1, 0, t_r, 0, 1, t_c, 0, 0]
+    return tfa.image.transform (x, T)
