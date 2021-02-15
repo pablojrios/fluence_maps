@@ -77,4 +77,5 @@ featureClass:
     - 'SumSquares' # Defined by IBSI as Joint Variance
   glrlm: # for lists none values are allowed, in this case, all features are enabled
   glszm:
-  # gldm:  # contains deprecated features, but as no individual features are specified, the deprecated features are not enabled
+  gldm:  # contains deprecated features, but as no individual features are specified, the deprecated features are not enabled
+  ngtdm: # added
