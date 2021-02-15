@@ -18,7 +18,7 @@
 
 # Settings to use, possible settings are listed in the documentation (section "Customizing the extraction").
 setting:
-  binWidth: 25
+  binWidth: 20 
   label: 1
   interpolator: 'sitkBSpline' # This is an enumerated value, here None is not allowed
   resampledPixelSpacing: # This disables resampling, as it is interpreted as None, to enable it, specify spacing in x, y, z as [x, y , z]
@@ -75,6 +75,6 @@ featureClass:
     - 'MaximumProbability' # Defined by IBSI as Joint maximum
     - 'SumEntropy'
     - 'SumSquares' # Defined by IBSI as Joint Variance
-  # glrlm: # for lists none values are allowed, in this case, all features are enabled
+  glrlm: # for lists none values are allowed, in this case, all features are enabled
   glszm:
   # gldm:  # contains deprecated features, but as no individual features are specified, the deprecated features are not enabled
