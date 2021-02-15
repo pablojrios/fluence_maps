@@ -4,9 +4,9 @@ from PIL import Image # https://pillow.readthedocs.io/en/stable/index.html
 import cv2
 
 
-source_folder = '/home/pablo/datasets/data/radioterapia/ciolaplata/2018'
+source_folder = '/home/pablo/datasets/data/radioterapia/ciolaplata/2017'
 # Requiere tener creado el directorio de salida, 2019-jpeg en este caso
-destination_folder = '/home/pablo/datasets/data/radioterapia/ciolaplata/2018-opencv-jpeg'
+destination_folder = '/home/pablo/datasets/data/radioterapia/ciolaplata/2017-opencv-jpeg'
 
 USE_OPENCV = True # default: True
 if USE_OPENCV:
