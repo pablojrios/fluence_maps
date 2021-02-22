@@ -92,7 +92,7 @@ def _get_filenames_and_gamma_values(dicom_and_gamma_csv, dataset_dir, oversampli
     # Pass-by-object-reference: As we know, in Python, “Object references are passed by value”, so
     # displayHistogramOfGammaValues(df_dcm_out)
     
-    if 0.0 < sample <= 1.0:
+    if 0.0 < sample < 1.0:
         df_dcm_out = df_dcm_out.sample(n=int(len(df_dcm_in)*sample), random_state=seed)
     
     return df_dcm_out

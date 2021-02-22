@@ -28,6 +28,10 @@ setting:
 # Image types to use: "Original" for unfiltered image, for possible filters, see documentation.
 imageType:
   Original: {} # for dictionaries / mappings, None values are not allowed, '{}' is interpreted as an empty dictionary
+  # Wavelet: {'wavelet': 'bior1.3'}
+  # The following is equivalent to the line before
+  # Wavelet:
+  #         wavelet: 'bior1.3'
   Wavelet: {}
 
 # Featureclasses, from which features must be calculated. If a featureclass is not mentioned, no features are calculated
