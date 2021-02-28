@@ -34,7 +34,8 @@ def _parse_to_validate_image_function(example_proto):
     return parsed
 
 
-def _parse_jpeg_image_function(example_proto, img_size, normalization_fn, transform_gamma=False):
+def _parse_jpeg_image_function(example_proto, img_size, normalization_fn, transform_gamma=False,
+                              standarize_gamma=False, train_mean=0.0, train_stdev=1.0):
 
     # Parse the input tf.Example proto using the dictionary above.
     parsed = tf.io.parse_single_example(example_proto, image_feature_description)
@@ -54,6 +55,9 @@ def _parse_jpeg_image_function(example_proto, img_size, normalization_fn, transf
     if transform_gamma:
         gamma = 60.0 / (105 - gamma)
 
+    if standarize_gamma:
+        gamma = (gamma - train_mean)/train_stdev
+        
     return image, gamma, filename
 
 
